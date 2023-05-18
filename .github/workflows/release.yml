@@ -1,0 +1,50 @@
+name: Release
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'Sources/**'
+jobs:
+  build-and-release:
+    runs-on: macos-13
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+
+    - name: Build release artifacts
+      shell: bash
+      run: | 
+        set -x
+        mkdir -p ~/output
+        .github/scripts/release.sh
+        cd .build/apple/Products/Release
+        cp pdubs.tar.gz pdubs.tar.gz.sha256 ~/output
+        ls -la ~/output
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: output ${{ matrix.os }}
+        path: ~/output
+        if-no-files-found: error
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: lts/*
+
+    - run: |
+        npm install @semantic-release/git @semantic-release/changelog -D
+        npx semantic-release
+      env:
+        GH_TOKEN: ${{ secrets.PDUBS_CI_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PDUBS_CI_TOKEN }}
+
