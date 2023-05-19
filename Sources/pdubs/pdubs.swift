@@ -23,9 +23,12 @@ public struct pdubs {
             if !parentWindows.isEmpty {
                 do {
                     var formatting: JSONSerialization.WritingOptions = [
-                        .prettyPrinted,
-                        .sortedKeys
+                        .prettyPrinted
                     ]
+                    
+                    if #available(macOS 10.13, *) {
+                        formatting.insert(.sortedKeys)
+                    }
                     
                     if #available(macOS 10.15, *) {
                         formatting.insert(.withoutEscapingSlashes)

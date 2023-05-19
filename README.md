@@ -1,9 +1,22 @@
-# pdubs
+# 🦬 pdubs
 pdubs is a simple command-line utility to return macos window information for a given pid. If a given pid does not have an associated window, then it will check all of its ancestors. The window information for the first pid that is associated will be returned. The window information is a list in json format.
 
 You may supply one optional parameter providing the pid. If no parameter is provided, then it will search for the current processes pid.
 
-## swift commands
+## motivation
+I wanted an easy way to get the window ID of my current process so that I could take a screenshot from the command-line with [screencapture](https://ss64.com/osx/screencapture.html).  
+### screenshot example
+```bash
+win=$(./pdubs | jq .[0].kCGWindowNumber); screencapture -l"$win" pdubs.png
+```
+![pdubs](https://github.com/mikesmithgh/pdubs/assets/10135646/5e389586-717a-4f60-9f59-30a40eea1548)
+
+## 🍎 Supported OS versions
+- macOS 13 Ventura
+- macOS 12 Monterey
+- macOS 11 Big Sur
+
+## 🔨 swift commands
 
 ### debug build
 ```sh
@@ -20,7 +33,7 @@ swift build -c release
 swift run
 ```
 
-## usage examples
+## 👩‍💻 usage examples
 
 ### current process
 ```sh
