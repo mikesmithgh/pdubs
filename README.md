@@ -11,6 +11,19 @@ win=$(./pdubs | jq .[0].kCGWindowNumber); screencapture -l"$win" pdubs.png
 ```
 ![pdubs](https://github.com/mikesmithgh/pdubs/assets/10135646/5e389586-717a-4f60-9f59-30a40eea1548)
 
+## 📦 Installation
+
+### Download the binary for your system
+```sh
+wget -qO- "https://github.com/mikesmithgh/pdubs/releases/download/v1.0.0/pdubs_$(arch).tar.gz" | tar -xvz
+```
+Move the binary `pdubs` to the desired location and place on your `$PATH`
+
+For example,
+```sh
+mv pdubs ~/bin
+```
+
 ## 🍎 Supported OS versions
 - macOS 13 Ventura
 - macOS 12 Monterey
