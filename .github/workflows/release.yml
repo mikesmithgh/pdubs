@@ -9,7 +9,7 @@ on:
       - 'main'
 
 jobs:
-  test:
+  build:
     runs-on: macos-13
     timeout-minutes: 5
     steps:
