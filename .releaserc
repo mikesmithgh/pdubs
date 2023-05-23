@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/github", {
+      "assets": [
+        {"path": "~/output/pdubs.tar.gz", "label": "Tarball containing pdubs binary"},
+        {"path": "~/output/pdubs.tar.gz.sha256", "label": "SHA-256 checksum of pdubs.tar.gz"}
+      ]
+    }]
+  ]
+}
+

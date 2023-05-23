@@ -1,13 +1,9 @@
-name: release
-on: 
-  workflow_dispatch:
+name: Release
+on:
   push:
     branches:
-      - 'main'
-  pull_request: 
-    branches:
-      - 'main'
-
+      - main
+  workflow_dispatch:
 jobs:
   build:
     runs-on: macos-13
@@ -31,4 +27,25 @@ jobs:
         name: output ${{ matrix.os }}
         path: ~/output
         if-no-files-found: error
+  release:
+    name: release
+    runs-on: macos-13
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+      - run: |
+          npm install @semantic-release/git @semantic-release/changelog -D
+          npx semantic-release
+        env:
+          GH_TOKEN: ${{ secrets.PDUBS_CI_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PDUBS_CI_TOKEN }}
 
