@@ -1,7 +1,16 @@
+<img src="https://github.com/mikesmithgh/pdubs/assets/10135646/420bedc4-e858-4da2-9fcb-842db5df4d88" alt="pdubsbuffalo" style="width: 25%" align="right" />
+
 # 🦬 pdubs
-pdubs is a simple command-line utility to return macos window information for a given pid. If a given pid does not have an associated window, then it will check all of its ancestors. The window information for the first pid that is associated will be returned. The window information is a list in JSON format.
+A simple command-line utility to return macos window information for a given pid.
+
+[![macos: 11+](https://img.shields.io/static/v1?style=for-the-badge&label=macos&message=11%2b&logo=apple&labelColor=282828&logoColor=968c81&color=968c81)](https://www.apple.com/macos)
+[![swift: 5.5+](https://img.shields.io/static/v1?style=for-the-badge&label=swift&message=5.5%2b&logo=swift&labelColor=282828&logoColor=ff6961&color=ff6961)](https://www.swift.org/)
+
+If a given pid does not have an associated window, then it will check all of its ancestors. The window information for the first pid that is associated will be returned. The window information is a list in JSON format.
 
 You may supply one optional parameter providing the pid. If no parameter is provided, then it will search for the current processes pid.
+
+
 
 ## 🤔 Motivation
 I wanted an easy way to get the window ID of my current process so that I could take a screenshot from the command-line with [screencapture](https://ss64.com/osx/screencapture.html).  
