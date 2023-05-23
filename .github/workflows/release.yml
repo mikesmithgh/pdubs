@@ -1,0 +1,34 @@
+name: ci
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+  pull_request: 
+    branches:
+      - 'main'
+
+jobs:
+  test:
+    runs-on: macos-13
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build release artifacts
+      shell: bash
+      run: | 
+        set -x
+        mkdir -p ~/output
+        .github/scripts/release.sh
+        cd .build/apple/Products/Release
+        mv pdubs.tar.gz pdubs.tar.gz.sha256 ~/output
+        ls -la ~/output
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: output ${{ matrix.os }}
+        path: ~/output
+        if-no-files-found: error
+

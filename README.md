@@ -15,7 +15,11 @@ win=$(./pdubs | jq .[0].kCGWindowNumber); screencapture -l"$win" pdubs.png
 
 ### Download the binary for your system
 ```sh
-wget -qO- "https://github.com/mikesmithgh/pdubs/releases/download/v1.0.0/pdubs_$(arch).tar.gz" | tar -xvz
+curl --silent --fail --location --output pdubs_arm64.tar.gz https://github.com/mikesmithgh/pdubs/releases/download/v1.0.1/pdubs.tar.gz
+curl --silent --fail --location --output pdubs_arm64.tar.gz https://github.com/mikesmithgh/pdubs/releases/download/v1.0.1/pdubs.tar.gz.sha256
+if shasum -c pdubs.tar.gz.sha256; then 
+  tar -xvf pdubs.tar.gz 
+fi
 ```
 Move the binary `pdubs` to the desired location and place on your `$PATH`
 
@@ -38,7 +42,10 @@ swift build
 
 ### release build
 ```sh
-swift build -c release
+swift build -c release --arch arm64 --arch x86_64
+cd .build/apple/Products/Release || exit 1
+tar -czvf pdubs.tar.gz pdubs
+shasum --algorithm 256 pdubs.tar.gz | tee pdubs.tar.gz.sha256
 ```
 
 ### run
