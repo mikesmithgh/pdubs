@@ -39,31 +39,6 @@ For example,
 mv pdubs ~/bin
 ```
 
-## 🍎 Supported OS versions
-- macOS 13 Ventura
-- macOS 12 Monterey
-- macOS 11 Big Sur
-
-## 🔨 Swift commands
-
-### debug build
-```sh
-swift build
-```
-
-### release build
-```sh
-swift build -c release --arch arm64 --arch x86_64
-cd .build/apple/Products/Release || exit 1
-tar -czvf pdubs.tar.gz pdubs
-shasum --algorithm 256 pdubs.tar.gz | tee pdubs.tar.gz.sha256
-```
-
-### run
-```sh
-swift run
-```
-
 ## 👩‍💻 Usage examples
 
 ### current process
@@ -137,6 +112,31 @@ swift run
   }
 ]
 ```
+
+## 🔨 Swift commands
+
+### debug build
+```sh
+swift build
+```
+
+### release build
+```sh
+swift build -c release --arch arm64 --arch x86_64
+cd .build/apple/Products/Release || exit 1
+tar -czvf pdubs.tar.gz pdubs
+shasum --algorithm 256 pdubs.tar.gz | tee pdubs.tar.gz.sha256
+```
+
+### run
+```sh
+swift run
+```
+
+## 🍎 Supported OS versions
+- macOS 13 Ventura
+- macOS 12 Monterey
+- macOS 11 Big Sur
 
 ## 🕵️ Troubleshooting
 
